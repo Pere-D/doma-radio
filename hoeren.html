@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hör mit – Doma Radio</title>
+<meta property="og:title" content="Hör mit auf Doma Radio">
+<meta property="og:description" content="Heimatsender live hören – ein Tipp und der Sender läuft.">
+<meta property="og:image" content="https://pere-d.github.io/doma-radio/icon.png">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="icon.png">
+</head>
+<body>
+<main>
+  <header><a href="./"><img src="icon.png" alt="">Doma Radio</a></header>
+  <h1 id="title">Hör mit</h1>
+  <div class="card">
+    <p id="text">Dieser Sender läuft in Doma Radio.</p>
+    <p><a class="button" id="open" href="#">In Doma Radio hören</a></p>
+    <p><a id="store" href="https://apps.apple.com/app/id6833972785">Doma Radio im App Store laden</a></p>
+    <p class="muted">Gratis, ohne Werbung, ohne Anmeldung.</p>
+  </div>
+</main>
+<script>
+  // Link-Format: hoeren.html?s=<Sender-ID>&n=<Name>
+  var params = new URLSearchParams(location.search);
+  var id = (params.get('s') || '').replace(/[^a-z0-9-]/gi, '');
+  var name = params.get('n');
+  if (name) {
+    document.getElementById('title').textContent = 'Hör mit: ' + name;
+    document.getElementById('text').textContent = name + ' läuft live in Doma Radio.';
+    document.title = name + ' – Doma Radio';
+  }
+  var app = 'doma://play/' + id;
+  var open = document.getElementById('open');
+  if (id) {
+    open.href = app;
+    // Ist die App installiert, öffnet sie sich direkt mit dem Sender.
+    location.href = app;
+  } else {
+    open.href = document.getElementById('store').href;
+  }
+</script>
+</body>
+</html>
